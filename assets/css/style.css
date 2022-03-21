@@ -1,0 +1,50 @@
+:root {
+    --primary-color: rgb(206, 198, 198);
+    --secondary-color: rgb(212, 73, 73);
+    --tertiary-color: black;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    }
+
+body {
+    background-color: var(--primary-color);
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+header {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    padding: 5vw 1vw 5vw 1vw;
+}
+
+.score {
+    color: var(--secondary-color);
+}
+
+.quiz-content {
+width: 400px;
+position: center;
+margin:auto;
+}
+
+.intro {
+    display:flex;
+}
+.quiz-content h1 {
+    padding: 2vw;
+}
+
+.quiz-content p {
+    padding: 2vw;
+}
+
+.start-button {
+    padding: 2vw;
+    background-color: var(--secondary-color);
+    justify-content: center;
+}
