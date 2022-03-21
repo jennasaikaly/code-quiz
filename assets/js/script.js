@@ -12,7 +12,9 @@ const countdownEl = document.getElementById('time');
 
 let questionIdCounter = 0;
 
-let quizWrapperEl = document.querySelector('#quiz-wrapper')
+let quizContentEl = document.querySelector('#quiz-content');
+//let quizWrapperEl = document.querySelector('#quiz-wrapper');
+let answerWrapperEl = document.querySelector('#answer-wrapper');
 // ***********************************//
 //QUESTION ARRAY
 let allQuestions = [
@@ -22,7 +24,7 @@ let allQuestions = [
                 "String",
                 "Float",
                 "Char"],
-    correctAnswer: 1 //index of the correct answer 'string'
+    correctAnswer: "String" // 1 //index of the correct answer 'string'
     },
     {
     question: "Which element does JavaScript get entered into?",
@@ -30,7 +32,7 @@ let allQuestions = [
                 "<body>",
                 "<javascript>",
                 "<script>"],
-    correctAnswer: 2 //index of the correct answer 'script'
+    correctAnswer:"<script>" //2 //index of the correct answer 'script'
     },
     {
     question: "What is a useful tool used during development and debugging for printing content to the debugger?",
@@ -38,7 +40,7 @@ let allQuestions = [
                 "terminal/bash",
                 "alerts",
                 "console.log"],
-    correctAnswer: 3 //index of the correct answer 'console.log'
+    correctAnswer:"console.log"// 3 //index of the correct answer 'console.log'
     },
     {
     question: "String values must be enclosed within what when being assigned to variables?",
@@ -46,7 +48,7 @@ let allQuestions = [
                 "curly brackets",
                 "quotes",
                 "commas"],
-    correctAnswer: 2 //index of the correct answer "quotes"
+    correctAnswer: "quotes" //2 //index of the correct answer "quotes"
     },
     {
     question: "When writing an 'if/else' statement, what is the condition enclosed in?",
@@ -54,12 +56,12 @@ let allQuestions = [
                 "square brackets",
                 "quotes",
                 "parentheses"],
-    correctAnswer: 3 //index of the correct answer 'parentheses'
+    correctAnswer:"parentheses" // 3 //index of the correct answer 'parentheses'
     },
 ]
 //function that starts once 'Start' Button is clicked
 let startQuizHandler = function(event){
-  //debugger;
+ //debugger;
  event.preventDefault(); //prevents default browser settings from reloading the browser
 //console.log(event.target)
 introEl.remove();
@@ -104,56 +106,90 @@ function createQuestion(){
     let choiceLi4 = document.createElement("li");
     choiceLi4.className = "choice-4";
 
-    let choiceLi5 = document.createElement("li");
-    choiceLi5.className = "choice-5";
+   
 
+    let buttonLi0 = document.createElement("button");
+    buttonLi0.className = "btn choice-btn-0";
+    
     let buttonLi1 = document.createElement("button");
-    buttonLi1.className = "choice-btn-1";
-
+    buttonLi1.className = "btn choice-btn-1";
+    
     let buttonLi2 = document.createElement("button");
-    buttonLi2.className = "choice-btn-2";
+    buttonLi2.className = "btn choice-btn-2";
 
     let buttonLi3 = document.createElement("button");
-    buttonLi3.className = "choice-btn-3";
+    buttonLi3.className = "btn choice-btn-3";
 
-    let buttonLi4 = document.createElement("button");
-    buttonLi4.className = "choice-btn-4";
-
-document.body.appendChild(questionWrapperEl);
+//document.body.appendChild(questionWrapperEl);
+quizContentEl.appendChild(questionWrapperEl);
 questionWrapperEl.appendChild(questionListEl);
 questionListEl.appendChild(questionHeaderEl);
 questionListEl.appendChild(choiceLi1);
 questionListEl.appendChild(choiceLi2);
 questionListEl.appendChild(choiceLi3);
 questionListEl.appendChild(choiceLi4);
+
+choiceLi4.appendChild(buttonLi0);
 choiceLi1.appendChild(buttonLi1);
 choiceLi2.appendChild(buttonLi2);
 choiceLi3.appendChild(buttonLi3);
-choiceLi4.appendChild(buttonLi4);
+
+
 
  
 let i = questionIdCounter;
 if (i < allQuestions.length) {
     console.log(allQuestions[i].question);
     questionHeaderEl.textContent = allQuestions[i].question;
-    buttonLi1.textContent = allQuestions[i].choices[0];
-    buttonLi2.textContent = allQuestions[i].choices[1];
-    buttonLi3.textContent = allQuestions[i].choices[2];
-    buttonLi4.textContent = allQuestions[i].choices[3];
-    }
+    buttonLi0.textContent = allQuestions[i].choices[0];
+    buttonLi1.textContent = allQuestions[i].choices[1];
+    buttonLi2.textContent = allQuestions[i].choices[2];
+    buttonLi3.textContent = allQuestions[i].choices[3];
+        }
     
-    buttonLi1.addEventListener("click", createQuestion);
-    buttonLi2.addEventListener("click", createQuestion);
-    buttonLi3.addEventListener("click", createQuestion);
-    buttonLi4.addEventListener("click", createQuestion);
+        buttonLi0.addEventListener("click", checkAnswer);
+        buttonLi1.addEventListener("click", checkAnswer);
+        buttonLi2.addEventListener("click", checkAnswer);
+        buttonLi3.addEventListener("click", checkAnswer);
 
+    //buttonLi1.addEventListener("click", createQuestion);
+    //buttonLi2.addEventListener("click", createQuestion);
+    //buttonLi3.addEventListener("click", createQuestion);
+    //buttonLi4.addEventListener("click", createQuestion);
+
+    //debugger;
+    
+
+   
+      }   
+
+function checkAnswer(event){
+ //debugger;
+  event.preventDefault();
+  var element = event.target;
+  
+ let rightWrong = document.createElement("p");
+    rightWrong.className = "right-wrong";
+    answerWrapperEl.appendChild(rightWrong);
+  if (element.matches("button")){
+  
+  if (element.textContent === allQuestions[questionIdCounter].correctAnswer){
+    rightWrong.textContent = "Correct!";
     questionIdCounter++;
-}   
+    
+  } 
+  else {
+    rightWrong.textContent = "Wrong!";
+    questionIdCounter++;
+  }
+}
 
-
-
+}
 
 // creates event listener for the start button
+
 startButtonEl.addEventListener("click", startTimer);
 startButtonEl.addEventListener("click", startQuizHandler);
+
+
 

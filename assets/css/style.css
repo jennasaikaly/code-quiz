@@ -48,3 +48,8 @@ margin:auto;
     background-color: var(--secondary-color);
     justify-content: center;
 }
+
+footer {
+    width: 400px;
+    margin:auto;
+}
