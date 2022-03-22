@@ -80,10 +80,11 @@ function startTimer(){
 }
 
 function createQuestion(){
-  
+  //debugger;
      //create question header
+    
     let questionWrapperEl = document.createElement("div");
-   
+    
     questionWrapperEl.className = "question-wrapper";
     //add question id as a custom attribute
     questionWrapperEl.setAttribute("data-question-id",questionIdCounter);
@@ -176,15 +177,21 @@ function checkAnswer(event){
   if (element.textContent === allQuestions[questionIdCounter].correctAnswer){
     rightWrong.textContent = "Correct!";
     questionIdCounter++;
-    
+  
+
   } 
   else {
     rightWrong.textContent = "Wrong!";
     questionIdCounter++;
+    
+    
   }
+  
+  createQuestion();
 }
 
 }
+
 
 // creates event listener for the start button
 
