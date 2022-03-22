@@ -98,7 +98,7 @@ function createQuestion(){
     //add question id as a custom attribute
     //questionWrapperEl.setAttribute("data-question-id",questionIdCounter);
 
-    let questionEl = document.createElement("h1");
+    let questionEl = document.createElement("h2");
     questionEl.className = "question";
     questionEl.setAttribute("data-question-id",questionIdCounter);
     
