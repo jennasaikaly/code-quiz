@@ -11,6 +11,9 @@ let time = startingMinutes * 60;
 const countdownEl = document.getElementById('time');
 
 let questionIdCounter = 0;
+let headerQuestionEl = document.querySelector('#header-question');
+let infoChoiceEl = document.querySelector('#info-choice');
+let startAnswerEl = document.querySelector('#start-answer')
 
 let quizContentEl = document.querySelector('#quiz-content');
 //let quizWrapperEl = document.querySelector('#quiz-wrapper');
@@ -64,7 +67,10 @@ let startQuizHandler = function(event){
  //debugger;
  event.preventDefault(); //prevents default browser settings from reloading the browser
 //console.log(event.target)
-introEl.remove();
+//introEl.remove();
+document.getElementById("header-question").innerHTML = "";
+  document.getElementById("info-choice").innerHTML = "";
+  document.getElementById("start-answer").innerHTML = "";
 createQuestion(questionIdCounter);
 }
 function startTimer(){
@@ -81,19 +87,26 @@ function startTimer(){
 
 function createQuestion(){
   //debugger;
+  document.getElementById("header-question").innerHTML = "";
+  document.getElementById("info-choice").innerHTML = "";
+  //document.getElementById("start-answer").innerHTML = "";
      //create question header
     
-    let questionWrapperEl = document.createElement("div");
+    //let questionWrapperEl = document.createElement("div");
     
-    questionWrapperEl.className = "question-wrapper";
+    //questionWrapperEl.className = "question-wrapper";
     //add question id as a custom attribute
-    questionWrapperEl.setAttribute("data-question-id",questionIdCounter);
+    //questionWrapperEl.setAttribute("data-question-id",questionIdCounter);
 
+    let questionEl = document.createElement("h1");
+    questionEl.className = "question";
+    questionEl.setAttribute("data-question-id",questionIdCounter);
+    
     let questionListEl = document.createElement("ol");
     questionListEl.className = "quiz-question";
 
-    let questionHeaderEl = document.createElement("lh");
-    questionHeaderEl.className = "question";
+    //let questionHeaderEl = document.createElement("lh");
+   //questionHeaderEl.className = "question";
 
     let choiceLi1 = document.createElement("li");
     choiceLi1.className = "choice-1";
@@ -106,8 +119,6 @@ function createQuestion(){
 
     let choiceLi4 = document.createElement("li");
     choiceLi4.className = "choice-4";
-
-   
 
     let buttonLi0 = document.createElement("button");
     buttonLi0.className = "btn choice-btn-0";
@@ -122,9 +133,14 @@ function createQuestion(){
     buttonLi3.className = "btn choice-btn-3";
 
 //document.body.appendChild(questionWrapperEl);
-quizContentEl.appendChild(questionWrapperEl);
-questionWrapperEl.appendChild(questionListEl);
-questionListEl.appendChild(questionHeaderEl);
+//quizContentEl.appendChild(questionWrapperEl);
+//questionWrapperEl.appendChild(questionListEl);
+
+//new
+headerQuestionEl.appendChild(questionEl);
+infoChoiceEl.appendChild(questionListEl); //new
+
+//questionListEl.appendChild(questionHeaderEl);
 questionListEl.appendChild(choiceLi1);
 questionListEl.appendChild(choiceLi2);
 questionListEl.appendChild(choiceLi3);
@@ -134,44 +150,49 @@ choiceLi4.appendChild(buttonLi0);
 choiceLi1.appendChild(buttonLi1);
 choiceLi2.appendChild(buttonLi2);
 choiceLi3.appendChild(buttonLi3);
+    
 
+  questionEl.textContent = "";
+  buttonLi0.textContent = "";
+  buttonLi0.textContent = "";
+  buttonLi0.textContent = "";
+  buttonLi0.textContent = "";
 
-
- 
 let i = questionIdCounter;
 if (i < allQuestions.length) {
     console.log(allQuestions[i].question);
-    questionHeaderEl.textContent = allQuestions[i].question;
+    questionEl.textContent = allQuestions[i].question;
     buttonLi0.textContent = allQuestions[i].choices[0];
     buttonLi1.textContent = allQuestions[i].choices[1];
     buttonLi2.textContent = allQuestions[i].choices[2];
     buttonLi3.textContent = allQuestions[i].choices[3];
         }
-    
+  
         buttonLi0.addEventListener("click", checkAnswer);
         buttonLi1.addEventListener("click", checkAnswer);
         buttonLi2.addEventListener("click", checkAnswer);
         buttonLi3.addEventListener("click", checkAnswer);
-
+      
     //buttonLi1.addEventListener("click", createQuestion);
     //buttonLi2.addEventListener("click", createQuestion);
     //buttonLi3.addEventListener("click", createQuestion);
     //buttonLi4.addEventListener("click", createQuestion);
 
-    //debugger;
+    
     
 
-   
+    
       }   
 
 function checkAnswer(event){
  //debugger;
   event.preventDefault();
   var element = event.target;
-  
+  document.getElementById("start-answer").innerHTML = "";
  let rightWrong = document.createElement("p");
     rightWrong.className = "right-wrong";
-    answerWrapperEl.appendChild(rightWrong);
+    //answerWrapperEl.appendChild(rightWrong);
+    startAnswerEl.appendChild(rightWrong);
   if (element.matches("button")){
   
   if (element.textContent === allQuestions[questionIdCounter].correctAnswer){
