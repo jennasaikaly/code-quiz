@@ -7,6 +7,7 @@ let introEl = document.querySelector('#intro')
 //timer variables
 let timeLeft = 75;
 
+
 const countdownEl = document.getElementById('time');
 
 let questionIdCounter = 0;
@@ -17,6 +18,7 @@ let startAnswerEl = document.querySelector('#start-answer')
 let quizContentEl = document.querySelector('#quiz-content');
 //let quizWrapperEl = document.querySelector('#quiz-wrapper');
 let answerWrapperEl = document.querySelector('#answer-wrapper');
+let highScore = "";
 // ***********************************//
 //QUESTION ARRAY
 let allQuestions = [
@@ -208,14 +210,17 @@ function checkAnswer(event) {
 }
 
 function saveScore(timeLeft){
+  if (timeLeft >= highScore){
   document.getElementById("header-question").innerHTML = "Congratulations!!";
-  document.getElementById("info-choice").innerHTML = "You have finished the quiz with a score of " + timeLeft +
+  document.getElementById("info-choice").innerHTML = "You have finished the quiz with a new HIGH SCORE of " + timeLeft +
     "! Would you like to save your score?";
- 
-  
+ startAnswerEl.innerHTML = '<button id = "yes-btn">YES</button'
+  }
+  else {
+    headerQuestionEl.innerHTML = "";
+    infoChoiceEl.innerHTML = "You did not beat the high score.  Please try again."}
+
 }
-
-
 // creates event listener for the start button
 
 startButtonEl.addEventListener("click", startTimer);
