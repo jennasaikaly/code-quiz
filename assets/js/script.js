@@ -4,9 +4,8 @@
 //start quiz letiables
 let startButtonEl = document.querySelector('#start-button');
 let introEl = document.querySelector('#intro')
-//timer letiables
-const startingMinutes = 2;
-let time = startingMinutes * 60;
+//timer variables
+
 
 const countdownEl = document.getElementById('time');
 
@@ -73,17 +72,18 @@ document.getElementById("header-question").innerHTML = "";
   document.getElementById("start-answer").innerHTML = "";
 createQuestion(questionIdCounter);
 }
+
 function startTimer(){
-
-  
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    
-    countdownEl.innerHTML = `${minutes}: ${seconds}`;
-    time--;
-
-  //setInterval(startTimer, 1000);
-}
+let timeLeft = 75;
+let interval = setInterval(function(){
+  countdownEl.innerHTML = timeLeft + " seconds left";
+    timeLeft = timeLeft -1;
+    if (timeLeft <= 0){
+    clearInterval(interval);
+    countdownEl.innerHTML = "You are out of time!";
+    };
+  },1000);
+};
 
 function createQuestion(){
   //debugger;
