@@ -32,6 +32,12 @@ position: center;
 margin:auto;
 }
 
+.score-wrapper {
+    width: 400px;
+position: center;
+margin:auto;
+}
+
 .intro {
     display:flex;
 }
