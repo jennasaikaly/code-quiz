@@ -1,23 +1,38 @@
+//NEEDED
 /********************/
-// DEFINE letIABLES
+// DEFINE VARIABLES
 /********************/
-//start quiz letiables
+//start quiz variables
 let startButtonEl = document.querySelector('#start-button');
-let introEl = document.querySelector('#intro')
+let quizIntroEl = document.querySelector('#quiz-intro');
+
 //timer variables
 let timeLeft = 75;
-
-
 const countdownEl = document.getElementById('time');
 
-let questionIdCounter = 0;
-let headerQuestionEl = document.querySelector('#header-question');
-let infoChoiceEl = document.querySelector('#info-choice');
-let startAnswerEl = document.querySelector('#start-answer')
-
+//create question variable
+let quizWrapperEl = document.querySelector('#quiz-wrapper');
 let quizContentEl = document.querySelector('#quiz-content');
-//let quizWrapperEl = document.querySelector('#quiz-wrapper');
-let answerWrapperEl = document.querySelector('#answer-wrapper');
+let questionIdCounter = 0;
+
+//check answer variables
+let answerContainerEl = document.querySelector('#answer-container');
+
+//save score variables
+let scoreContainerEl = document.querySelector('#score-container');
+//UNSURE
+
+let introEl = document.querySelector('#intro')
+
+
+
+//let headerQuestionEl = document.querySelector('#header-question');
+//let infoChoiceEl = document.querySelector('#info-choice');
+//let startAnswerEl = document.querySelector('#start-answer')
+//let introTextEl = document.querySelector('#intro-text');
+//let quizContentEl = document.querySelector('#quiz-content');
+
+//let answerWrapperEl = document.querySelector('#answer-wrapper');
 let highScore = 0;
 
 
@@ -73,15 +88,15 @@ let startQuizHandler = function (event) {
   //debugger;
   event.preventDefault(); //prevents default browser settings from reloading the browser
   //console.log(event.target)
-  //introEl.remove();
-  document.getElementById("header-question").innerHTML = "";
-  document.getElementById("info-choice").innerHTML = "";
-  document.getElementById("start-answer").innerHTML = "";
+  quizIntroEl.style.display = "none";
+
+  //document.getElementById("header-question").innerHTML = "";
+  //document.getElementById("info-choice").innerHTML = "";
+  //document.getElementById("start-answer").innerHTML = "";
   createQuestion(questionIdCounter);
 }
 
 function startTimer() {
-
   let interval = setInterval(function () {
     countdownEl.innerHTML = timeLeft + " seconds left";
     timeLeft = timeLeft - 1;
@@ -89,23 +104,20 @@ function startTimer() {
       clearInterval(interval);
       countdownEl.innerHTML = "You are out of time!";
     };
-
     if (questionIdCounter === allQuestions.length) {
       clearInterval(interval);
       countdownEl.innerHTML = timeLeft + " seconds left!";
       saveScore(timeLeft);
-
     }
-
   }, 1000);
 };
 
 function createQuestion() {
-
-
   //debugger;
-  document.getElementById("header-question").innerHTML = "";
-  document.getElementById("info-choice").innerHTML = "";
+
+  quizContentEl.innerHTML="";
+  //document.getElementById("#question").innerHTML = "";
+ // document.getElementById("#quiz-question").innerHTML = "";
   //document.getElementById("start-answer").innerHTML = "";
   //create question header
 
@@ -117,14 +129,21 @@ function createQuestion() {
   //add question id as a custom attribute
   //questionWrapperEl.setAttribute("data-question-id",questionIdCounter);
 
-  let questionEl = document.createElement("h2");
-  questionEl.className = "question";
-  questionEl.setAttribute("data-question-id", questionIdCounter);
-
+  
+  
+  
+ 
   let questionListEl = document.createElement("ul");
-  questionListEl.className = "quiz-question";
+  questionListEl.className = "question-list";
+  questionListEl.id = "question-list";
+  questionListEl.setAttribute("data-question-id", questionIdCounter);
   questionListEl.style.listStyleType = "none";
   questionListEl.style.justifyContent = "left;"
+
+  let questionHeaderEl = document.createElement("lh");
+  questionHeaderEl.className = "question-header";
+  questionHeaderEl.id = "question-header";
+  
 
   //let questionHeaderEl = document.createElement("lh");
   //questionHeaderEl.className = "question";
@@ -159,31 +178,37 @@ function createQuestion() {
   //questionWrapperEl.appendChild(questionListEl);
 
   //new
-  headerQuestionEl.appendChild(questionEl);
-  infoChoiceEl.appendChild(questionListEl); //new
+  //new
 
   //questionListEl.appendChild(questionHeaderEl);
-  questionListEl.appendChild(choiceLi1);
-  questionListEl.appendChild(choiceLi2);
-  questionListEl.appendChild(choiceLi3);
-  questionListEl.appendChild(choiceLi4);
+
+
+
+
+
+  questionHeaderEl.textContent = "";
+  buttonLi0.textContent = "";
+  buttonLi0.textContent = "";
+  buttonLi0.textContent = "";
+  buttonLi0.textContent = "";
 
   choiceLi4.appendChild(buttonLi0);
   choiceLi1.appendChild(buttonLi1);
   choiceLi2.appendChild(buttonLi2);
   choiceLi3.appendChild(buttonLi3);
+  questionListEl.appendChild(questionHeaderEl);
+  questionListEl.appendChild(choiceLi1);
+  questionListEl.appendChild(choiceLi2);
+  questionListEl.appendChild(choiceLi3);
+  questionListEl.appendChild(choiceLi4);
+  quizContentEl.appendChild(questionListEl);
+ 
 
-
-  questionEl.textContent = "";
-  buttonLi0.textContent = "";
-  buttonLi0.textContent = "";
-  buttonLi0.textContent = "";
-  buttonLi0.textContent = "";
-
+ 
   let i = questionIdCounter;
   if (i < allQuestions.length) {
     console.log(allQuestions[i].question);
-    questionEl.textContent = allQuestions[i].question;
+    questionHeaderEl.textContent = allQuestions[i].question;
     buttonLi0.textContent = allQuestions[i].choices[0];
     buttonLi1.textContent = allQuestions[i].choices[1];
     buttonLi2.textContent = allQuestions[i].choices[2];
@@ -194,16 +219,17 @@ function createQuestion() {
   buttonLi1.addEventListener("click", checkAnswer);
   buttonLi2.addEventListener("click", checkAnswer);
   buttonLi3.addEventListener("click", checkAnswer);
+
 }
 
 function checkAnswer(event) {
   //debugger;
-  event.preventDefault();
+  //event.preventDefault();
   var element = event.target;
-  document.getElementById("start-answer").innerHTML = "";
+ answerContainerEl.innerHTML = "";
   let rightWrong = document.createElement("p");
   rightWrong.className = "right-wrong";
-  startAnswerEl.appendChild(rightWrong);
+  answerContainerEl.appendChild(rightWrong);
   if (element.matches("button")) {
 
     if (element.textContent === allQuestions[questionIdCounter].correctAnswer) {
@@ -215,12 +241,13 @@ function checkAnswer(event) {
       timeLeft = timeLeft - 10;
       questionIdCounter++;
     }
+
     createQuestion();
   }
 }
 
 function saveScore(timeLeft) {
-
+ 
   // check localStorage for high score, if it's not there, use 0
   var highScore = localStorage.getItem("highscore");
   if (highScore === null) {
@@ -268,9 +295,9 @@ function saveScore(timeLeft) {
     // Append the submit button to the form
     formEl.appendChild(submitButtonEl);
 
-  infoChoiceEl.appendChild(formEl);
-   
-  //document.getElementsByTagName("body")[0]
+    scoreContainerEl.appendChild(formEl);
+
+    //document.getElementsByTagName("body")[0]
     //  .appendChild(formEl);
 
     initialsInput = initialsInput.value.toUpperCase();
@@ -283,7 +310,7 @@ function saveScore(timeLeft) {
     submitButtonEl.addEventListener("click", scoreBoard());
   }
   else {
-    headerQuestionEl.innerHTML = "";
+    questionHeaderEl.innerHTML = "";
     infoChoiceEl.innerHTML = "You did not beat the high score.  Please try again."
     startAnswerEl.innerHTML = "";
   }
@@ -292,25 +319,25 @@ function saveScore(timeLeft) {
 
 //function scoreBoard() {
 //headerQuestionEl.textcontent = "HIGH SCORES";
- // let scoreListItemEl = document.createElement("li");
- // scoreListItemEl.className = "score-list-item";
-  //scoreListItemEl.textContent = "test";
- // let highScoreListEl = document.createElement("ol");
- // highScoreListEl.className = "high-score-list";
- // infoChoiceEl.appendChild(highScoreListEl);
- // highScoreListEl.appendChild(scoreListItemEl);
+// let scoreListItemEl = document.createElement("li");
+// scoreListItemEl.className = "score-list-item";
+//scoreListItemEl.textContent = "test";
+// let highScoreListEl = document.createElement("ol");
+// highScoreListEl.className = "high-score-list";
+// infoChoiceEl.appendChild(highScoreListEl);
+// highScoreListEl.appendChild(scoreListItemEl);
 
 
 
-  //scoreList.sort (function(a, b) {
+//scoreList.sort (function(a, b) {
 
-  // return b.timeLeft - a.timeLeft;
+// return b.timeLeft - a.timeLeft;
 
-  // });
+// });
 
-  // for (i = 0; i < scoreList.length; i++){
-  //debugger;
-  // }
+// for (i = 0; i < scoreList.length; i++){
+//debugger;
+// }
 //}
 
 

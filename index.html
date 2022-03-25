@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,31 +8,39 @@
     <title>Code Quiz</title>
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
+
 <body>
     <header>
         <div class="score">
             <a href="highscore.html">view high scores</a>
         </div>
-        <div class="timer">  
+        <div class="timer">
             <p id="time">Time: 0</p>
         </div>
     </header>
     <div class="quiz-wrapper" id="quiz-wrapper">
-        <div class="quiz-content" id="quiz-content">
-            <div class="header-question" id="header-question">
-                <h1 class="quiz-title">Coding Quiz Challenge</h1>
+        <div class="quiz-intro" id="quiz-intro">
+            <div class="intro-header-container" id="intro-header-container">
+                <h1 class="intro-quiz-title">Coding Quiz Challenge</h1>
             </div>
-            <div class="info-choice" id="info-choice">
-                <p class="intro"> Try to answer the following code-related questions within the time limit. <br/>
-                Keep in mind that incorrect answers will penalize your score/time <br/> by ten seconds!
+            <div class="intro-info-container" id="intro-info-container">
+                <p class="intro-text" id="intro-text"> Try to answer the following code-related questions within the
+                    time limit. <br />
+                    Keep in mind that incorrect answers will penalize your score/time <br /> by ten seconds!
                 </p>
             </div>
-            <div class= "start-answer" id="start-answer">
+            <div class="start-button-container" id="start-button-container">
                 <button class="start-button" id="start-button" type="submit">Start Quiz!</button>
             </div>
         </div>
+        <div class="quiz-content" id="quiz-content">
+        </div>
+        <div class="answer-container" id="answer-container">
+        </div>
+        <div class="score-container" id="score-container">
+            </div>
     </div>
-    <footer class="answer-wrapper" id="answer-wrapper"></footer>
 </body>
 <script src="./assets/js/script.js"></script>
+
 </html>
