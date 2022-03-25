@@ -21,7 +21,7 @@ let answerWrapperEl = document.querySelector('#answer-wrapper');
 let highScore = 0;
 
 
-let scoreListEl = document.querySelector('#score-list');
+let scoreListContainerEl = document.querySelector('#score-list-container');
 let scoreList = [];
 
 // ***********************************//
@@ -223,15 +223,15 @@ function saveScore(timeLeft){
   if (highScore === null) {
     highScore = 0;
   }
-  //if (timeLeft >= highScore){
+  if (timeLeft > highScore){
     //debugger;
   headerQuestionEl.innerHTML = "All Done!";
   infoChoiceEl.innerHTML = "Your final score is " + timeLeft;
- startAnswerEl.remove();
+ startAnswerEl.style.display = "none";
 
  var formEl = document.createElement("form");
-    formEl.setAttribute("method", "post");
-    formEl.setAttribute("action", "highscore.html");
+    //formEl.setAttribute("method", "post");
+    //formEl.setAttribute("action", "highscore.html");
     formEl.style.width = "400px";
     formEl.style.margin = "auto";
   
@@ -255,15 +255,15 @@ function saveScore(timeLeft){
     
 
      // create a submit button
-     var submitEl = document.createElement("input");
-     submitEl.setAttribute("type", "submit");
-     submitEl.setAttribute("value", "Submit");
-     //Apprend initialElement Text to the form
+     var submitButtonEl = document.createElement("button");
+     submitButtonEl.innerHTML = "Save High Score"
+    
+     //Append initialElement Text to the form
      formEl.appendChild(initialsEl);
      // Append the initial input to the form
      formEl.appendChild(initialsInput);
       // Append the submit button to the form
-      formEl.appendChild(submitEl);
+      formEl.appendChild(submitButtonEl);
       document.getElementsByTagName("body")[0]
                .appendChild(formEl);
                
@@ -272,29 +272,53 @@ function saveScore(timeLeft){
 // localStorage.setItem("highscore", timeLeft);
  //   localStorage.setItem("initials", initialsInput.value);
     
- 
+  
 
-    submitEl.addEventListener("click", scoreBoard());
- // }
-  //else {
-  //  headerQuestionEl.innerHTML = "";
-  //  infoChoiceEl.innerHTML = "You did not beat the high score.  Please try again."}
+    submitButtonEl.addEventListener("click", scoreBoard());
+  }
+  else {
+   headerQuestionEl.innerHTML = "";
+   infoChoiceEl.innerHTML = "You did not beat the high score.  Please try again."
+   startAnswerEl.innerHTML = "";
+  }
 
   }  // end of save score function
-function scoreBoard (){
+
+function scoreBoard() {
+headerQuestionEl.innerHTML = "HIGH SCORES";
+
+
   debugger;
-  scoreList.sort((a, b) => {
-    return a.timeLeft - b.timeLeft;
-  });
-  console.log(scoreList);
 
-let scoreListItemEl = document.createElement("li");
-scoreListItemEl.className = "score-list-item";
-scoreListEl.appendChild(scoreListItemEl);
+ 
+ let scoreListItemEl = document.createElement("li");
+ scoreListItemEl.className = "score-list-item";
+  
+ //  scoreListItemEl.textContent = "test";
+
+ let highScoreListEl = document.createElement("ol");
+ highScoreListEl.className = "high-score-list";
+ infoChoiceEl.appendChild(highScoreListEl);
+ highScoreListEl.appendChild(scoreListItemEl);
+  
+  
+  
+  //scoreList.sort (function(a, b) {
+    
+   // return b.timeLeft - a.timeLeft;
+    
+ // });
+
+ // for (i = 0; i < scoreList.length; i++){
+//debugger;
 
 
+
+
+ // }
 
 }
+
 // creates event listener for the start button
 
 startButtonEl.addEventListener("click", startTimer);
