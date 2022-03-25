@@ -81,11 +81,11 @@ let startQuizHandler = function (event) {
 }
 
 function startTimer() {
-  
+
   let interval = setInterval(function () {
     countdownEl.innerHTML = timeLeft + " seconds left";
     timeLeft = timeLeft - 1;
-    if (timeLeft <= 0){
+    if (timeLeft <= 0) {
       clearInterval(interval);
       countdownEl.innerHTML = "You are out of time!";
     };
@@ -102,15 +102,15 @@ function startTimer() {
 
 function createQuestion() {
 
-  
+
   //debugger;
   document.getElementById("header-question").innerHTML = "";
   document.getElementById("info-choice").innerHTML = "";
   //document.getElementById("start-answer").innerHTML = "";
   //create question header
 
-    
-    
+
+
   //let questionWrapperEl = document.createElement("div");
 
   //questionWrapperEl.className = "question-wrapper";
@@ -121,8 +121,10 @@ function createQuestion() {
   questionEl.className = "question";
   questionEl.setAttribute("data-question-id", questionIdCounter);
 
-  let questionListEl = document.createElement("ol");
+  let questionListEl = document.createElement("ul");
   questionListEl.className = "quiz-question";
+  questionListEl.style.listStyleType = "none";
+  questionListEl.style.justifyContent = "left;"
 
   //let questionHeaderEl = document.createElement("lh");
   //questionHeaderEl.className = "question";
@@ -141,6 +143,7 @@ function createQuestion() {
 
   let buttonLi0 = document.createElement("button");
   buttonLi0.className = "btn choice-btn-0";
+
 
   let buttonLi1 = document.createElement("button");
   buttonLi1.className = "btn choice-btn-1";
@@ -216,31 +219,31 @@ function checkAnswer(event) {
   }
 }
 
-function saveScore(timeLeft){
+function saveScore(timeLeft) {
 
   // check localStorage for high score, if it's not there, use 0
   var highScore = localStorage.getItem("highscore");
   if (highScore === null) {
     highScore = 0;
   }
-  if (timeLeft > highScore){
+  if (timeLeft > highScore) {
     //debugger;
-  headerQuestionEl.innerHTML = "All Done!";
-  infoChoiceEl.innerHTML = "Your final score is " + timeLeft;
- startAnswerEl.style.display = "none";
+    headerQuestionEl.textContent = "All Done!";
+    infoChoiceEl.innerHTML = "Your final score is " + timeLeft;
+    startAnswerEl.style.display = "none";
 
- var formEl = document.createElement("form");
-    //formEl.setAttribute("method", "post");
-    //formEl.setAttribute("action", "highscore.html");
+    var formEl = document.createElement("form");
+    formEl.setAttribute("method", "post");
+    formEl.setAttribute("action", "highscore.html");
     formEl.style.width = "400px";
     formEl.style.margin = "auto";
-  
+
     var initialsEl = document.createElement("p");
     initialsEl.style.display = "inline";
-    
+
     initialsEl.setAttribute("name", "initials-text");
     initialsEl.textContent = "Enter your initials:";
- 
+
     // Create an input element for initials
     var initialsInput = document.createElement("input");
     initialsInput.setAttribute("type", "text");
@@ -248,79 +251,70 @@ function saveScore(timeLeft){
     initialsInput.setAttribute("placeholder", "Enter your initials");
     initialsInput.style.margin = "1px 4px";
     //console.log(initialsInput);
-    
-    //var highScoreObj = {
-     // initials:  initialsInput,
-     // score: timeLeft
-    
 
-     // create a submit button
-     var submitButtonEl = document.createElement("button");
-     submitButtonEl.innerHTML = "Save High Score"
-    
-     //Append initialElement Text to the form
-     formEl.appendChild(initialsEl);
-     // Append the initial input to the form
-     formEl.appendChild(initialsInput);
-      // Append the submit button to the form
-      formEl.appendChild(submitButtonEl);
-      document.getElementsByTagName("body")[0]
-               .appendChild(formEl);
-               
+    //var highScoreObj = {
+    // initials:  initialsInput,
+    // score: timeLeft
+
+
+    // create a submit button
+    var submitButtonEl = document.createElement("button");
+    submitButtonEl.innerHTML = "Submit"
+
+    //Append initialElement Text to the form
+    formEl.appendChild(initialsEl);
+    // Append the initial input to the form
+    formEl.appendChild(initialsInput);
+    // Append the submit button to the form
+    formEl.appendChild(submitButtonEl);
+
+  infoChoiceEl.appendChild(formEl);
+   
+  //document.getElementsByTagName("body")[0]
+    //  .appendChild(formEl);
+
     initialsInput = initialsInput.value.toUpperCase();
     scoreList.push('initialsInput', timeLeft);
-// localStorage.setItem("highscore", timeLeft);
- //   localStorage.setItem("initials", initialsInput.value);
-    
-  
+    // localStorage.setItem("highscore", timeLeft);
+    //   localStorage.setItem("initials", initialsInput.value);
+
+
 
     submitButtonEl.addEventListener("click", scoreBoard());
   }
   else {
-   headerQuestionEl.innerHTML = "";
-   infoChoiceEl.innerHTML = "You did not beat the high score.  Please try again."
-   startAnswerEl.innerHTML = "";
+    headerQuestionEl.innerHTML = "";
+    infoChoiceEl.innerHTML = "You did not beat the high score.  Please try again."
+    startAnswerEl.innerHTML = "";
   }
 
-  }  // end of save score function
+}  // end of save score function
 
-function scoreBoard() {
-headerQuestionEl.innerHTML = "HIGH SCORES";
+//function scoreBoard() {
+//headerQuestionEl.textcontent = "HIGH SCORES";
+ // let scoreListItemEl = document.createElement("li");
+ // scoreListItemEl.className = "score-list-item";
+  //scoreListItemEl.textContent = "test";
+ // let highScoreListEl = document.createElement("ol");
+ // highScoreListEl.className = "high-score-list";
+ // infoChoiceEl.appendChild(highScoreListEl);
+ // highScoreListEl.appendChild(scoreListItemEl);
 
 
-  debugger;
 
- 
- let scoreListItemEl = document.createElement("li");
- scoreListItemEl.className = "score-list-item";
-  
- //  scoreListItemEl.textContent = "test";
-
- let highScoreListEl = document.createElement("ol");
- highScoreListEl.className = "high-score-list";
- infoChoiceEl.appendChild(highScoreListEl);
- highScoreListEl.appendChild(scoreListItemEl);
-  
-  
-  
   //scoreList.sort (function(a, b) {
-    
-   // return b.timeLeft - a.timeLeft;
-    
- // });
 
- // for (i = 0; i < scoreList.length; i++){
-//debugger;
+  // return b.timeLeft - a.timeLeft;
 
+  // });
 
+  // for (i = 0; i < scoreList.length; i++){
+  //debugger;
+  // }
+//}
 
-
- // }
-
-}
 
 // creates event listener for the start button
-
 startButtonEl.addEventListener("click", startTimer);
 startButtonEl.addEventListener("click", startQuizHandler);
 
