@@ -248,6 +248,8 @@ function checkAnswer(event) {
 
 function saveScore(timeLeft) {
  
+quizContentEl.style.display = "none";
+answerContainerEl.style.display = "none";
   // check localStorage for high score, if it's not there, use 0
   var highScore = localStorage.getItem("highscore");
   if (highScore === null) {
@@ -255,11 +257,16 @@ function saveScore(timeLeft) {
   }
   if (timeLeft > highScore) {
     //debugger;
-    headerQuestionEl.textContent = "All Done!";
-    infoChoiceEl.innerHTML = "Your final score is " + timeLeft;
-    startAnswerEl.style.display = "none";
-
-    var formEl = document.createElement("form");
+    //headerQuestionEl.textContent = "All Done!";
+    //infoChoiceEl.innerHTML = "Your final score is " + timeLeft;
+    //startAnswerEl.style.display = "none";
+    let saveScoreHeading = document.createElement("h2");
+    saveScoreHeading.className = "save-score-heading";
+    saveScoreHeading.style.textAlign = "center";
+    let finalScoreEl = document.createElement("p");
+    finalScoreEl.className = "final-score";
+    
+    let formEl = document.createElement("form");
     formEl.setAttribute("method", "post");
     formEl.setAttribute("action", "highscore.html");
     formEl.style.width = "400px";
@@ -269,25 +276,19 @@ function saveScore(timeLeft) {
     initialsEl.style.display = "inline";
 
     initialsEl.setAttribute("name", "initials-text");
-    initialsEl.textContent = "Enter your initials:";
-
+    
     // Create an input element for initials
     var initialsInput = document.createElement("input");
     initialsInput.setAttribute("type", "text");
     initialsInput.setAttribute("name", "initials");
     initialsInput.setAttribute("placeholder", "Enter your initials");
     initialsInput.style.margin = "1px 4px";
-    //console.log(initialsInput);
-
-    //var highScoreObj = {
-    // initials:  initialsInput,
-    // score: timeLeft
-
-
     // create a submit button
     var submitButtonEl = document.createElement("button");
     submitButtonEl.innerHTML = "Submit"
-
+    
+    scoreContainerEl.appendChild(saveScoreHeading);
+    scoreContainerEl.appendChild(finalScoreEl);
     //Append initialElement Text to the form
     formEl.appendChild(initialsEl);
     // Append the initial input to the form
@@ -297,9 +298,15 @@ function saveScore(timeLeft) {
 
     scoreContainerEl.appendChild(formEl);
 
+    saveScoreHeading.textContent = "All done!";
+    finalScoreEl.textContent = "Your final score is " + timeLeft + ". ";
+    initialsEl.textContent = "Enter your initials:";
     //document.getElementsByTagName("body")[0]
     //  .appendChild(formEl);
 
+    //var highScoreObj = {
+    // initials:  initialsInput,
+    // score: timeLeft
     initialsInput = initialsInput.value.toUpperCase();
     scoreList.push('initialsInput', timeLeft);
     // localStorage.setItem("highscore", timeLeft);
@@ -310,9 +317,9 @@ function saveScore(timeLeft) {
     submitButtonEl.addEventListener("click", scoreBoard());
   }
   else {
-    questionHeaderEl.innerHTML = "";
-    infoChoiceEl.innerHTML = "You did not beat the high score.  Please try again."
-    startAnswerEl.innerHTML = "";
+    saveScoreHeading.textContent = "Sorry!";
+    finalScoreEl.textContent = "You did not beat the high score.  Please try again."
+   
   }
 
 }  // end of save score function
