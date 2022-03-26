@@ -262,15 +262,17 @@ answerContainerEl.style.display = "none";
     //startAnswerEl.style.display = "none";
     let saveScoreHeading = document.createElement("h2");
     saveScoreHeading.className = "save-score-heading";
-    saveScoreHeading.style.textAlign = "center";
+  
     let finalScoreEl = document.createElement("p");
     finalScoreEl.className = "final-score";
     
     let formEl = document.createElement("form");
+    formEl.className = "form";
     formEl.setAttribute("method", "post");
     formEl.setAttribute("action", "highscore.html");
     formEl.style.width = "400px";
-    formEl.style.margin = "auto";
+    formEl.style.display = "inline";
+  
 
     var initialsEl = document.createElement("p");
     initialsEl.style.display = "inline";
@@ -282,6 +284,7 @@ answerContainerEl.style.display = "none";
     initialsInput.setAttribute("type", "text");
     initialsInput.setAttribute("name", "initials");
     initialsInput.setAttribute("placeholder", "Enter your initials");
+    initialsInput.style.height = "5px";
     initialsInput.style.margin = "1px 4px";
     // create a submit button
     var submitButtonEl = document.createElement("button");

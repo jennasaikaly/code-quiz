@@ -80,13 +80,35 @@ header a {
 }
 
 .answer-container{
-            border-top: solid 1px rgb(179, 179, 179);
+        border-top: solid 1px rgb(179, 179, 179);
         color: rgb(179, 179, 179);
         text-align: left;
         padding: 2px;
         margin-top: 15px;
     
 }
+
+.score-container {
+    text-align: left;
+}
+ 
+.final-score {
+    margin: 5px 0px;
+}
+
+.form button {
+    display: inline;
+    color: rgb(206, 206, 206);
+    background-color: rgb(58, 16, 136);
+    width: 100px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 3px;
+    font-size: 15px;
+}
+
 /*
 .score {
     color: var(--secondary-color);
