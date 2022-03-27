@@ -271,21 +271,24 @@ answerContainerEl.style.display = "none";
     formEl.setAttribute("method", "post");
     formEl.setAttribute("action", "highscore.html");
     formEl.style.width = "400px";
-    formEl.style.display = "inline";
+    formEl.style.height = "25px";
+    formEl.style.display = "flex";
+    formEl.style.alignItems = "baseline";
   
 
     var initialsEl = document.createElement("p");
     initialsEl.style.display = "inline";
-
     initialsEl.setAttribute("name", "initials-text");
-    
+    initialsEl.style.height = "25px";
+    initialsEl.style.width = "130px";
     // Create an input element for initials
     var initialsInput = document.createElement("input");
     initialsInput.setAttribute("type", "text");
     initialsInput.setAttribute("name", "initials");
     initialsInput.setAttribute("placeholder", "Enter your initials");
-    initialsInput.style.height = "5px";
-    initialsInput.style.margin = "1px 4px";
+    initialsInput.style.height = "25px";
+    initialsInput.style.margin = "0px 10px";
+    initialsInput.style.width = "110px";
     // create a submit button
     var submitButtonEl = document.createElement("button");
     submitButtonEl.innerHTML = "Submit"
